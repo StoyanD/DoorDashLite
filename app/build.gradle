@@ -34,12 +34,14 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v13:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
 
     // RxJava & RxAndroid
     implementation 'io.reactivex:rxjava:1.1.3'
     implementation 'io.reactivex:rxandroid:1.1.0'
 
-    // Retrofit
+    // NetworkModule
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
