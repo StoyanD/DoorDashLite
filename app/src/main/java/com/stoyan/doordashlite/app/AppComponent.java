@@ -1,5 +1,6 @@
 package com.stoyan.doordashlite.app;
 
+import com.stoyan.doordashlite.adapters.RestaurantAdapter;
 import com.stoyan.doordashlite.fragments.RestaurantListFrag;
 import com.stoyan.doordashlite.network.NetworkModule;
 import com.stoyan.doordashlite.network.RestaurantsModule;
@@ -16,4 +17,7 @@ import dagger.Component;
 public interface AppComponent {
 
     public void inject(RestaurantListFrag frag);
+    public void inject(RestaurantAdapter adapter);
+
+    void inject(RestaurantAdapter.ViewHolder viewHolder);
 }
