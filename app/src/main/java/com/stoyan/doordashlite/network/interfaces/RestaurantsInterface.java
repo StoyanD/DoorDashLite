@@ -6,7 +6,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by stoyan on 1/30/18.
@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface RestaurantsInterface {
 
-    @GET("restaurant/?lat={lat}&lng={lng}")
-    Call<List<RestaurantApi>> getRestaurants(@Path("lat") String latitude,
-                                             @Path("lng") String longitude);
+    @GET("restaurant/")
+    Call<List<RestaurantApi>> getRestaurants(@Query("lat") String latitude,
+                                             @Query("lng") String longitude);
 }

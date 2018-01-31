@@ -9,18 +9,49 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.stoyan.doordashlite.adapters.RestaurantAdapter;
+import com.stoyan.doordashlite.app.DoorDashApplication;
 import com.stoyan.doordashlite.databinding.FragmentRestaurantListBinding;
+import com.stoyan.doordashlite.network.api.RestaurantApi;
+import com.stoyan.doordashlite.network.interfaces.RestaurantsInterface;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by stoyan on 1/30/18.
  */
 
 public class RestaurantListFrag extends RxBaseFragment {
+    @Inject
+    RestaurantsInterface api;
 
     FragmentRestaurantListBinding binding;
 
     public static RestaurantListFrag newInstance() {
         return new RestaurantListFrag();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);//List<RestaurantApi>
+        DoorDashApplication.appComponent.inject(this);
+//        subscriptions.add(api.getRestaurants("37.422740", "-122.139956").subscribe());
+        api.getRestaurants("37.422740", "-122.139956").enqueue(new Callback<List<RestaurantApi>>() {
+            @Override
+            public void onResponse(Call<List<RestaurantApi>> call, Response<List<RestaurantApi>> response) {
+                response.body().get(0);
+            }
+
+            @Override
+            public void onFailure(Call<List<RestaurantApi>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

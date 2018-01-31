@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by stoyan on 1/30/18.
@@ -20,5 +21,11 @@ public class NetworkModule {
                 .baseUrl(NetworkConstants.DOORDASH_BASE_URL)
                 .addConverterFactory(converter)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    public Converter.Factory provideConverter(){
+        return GsonConverterFactory.create();
     }
 }
