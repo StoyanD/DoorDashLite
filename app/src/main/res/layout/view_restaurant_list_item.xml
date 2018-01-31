@@ -61,10 +61,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@{restaurant.status}"
+            android:maxWidth="70dp"
             app:layout_constraintBottom_toBottomOf="@+id/list_cover_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/list_cover_image"
+            android:textSize="12sp"
             tools:text="22 Mins" />
 
         <android.support.constraint.Guideline
