@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,13 @@ import retrofit2.Response;
  * Created by stoyan on 1/30/18.
  */
 
-public class RestaurantListFrag extends RxBaseFragment {
+public class RestaurantListFrag extends BaseFragment {
+    private static final String TAG = RestaurantListFrag.class.getSimpleName();
     @Inject
     RestaurantsInterface api;
 
     FragmentRestaurantListBinding binding;
+    public RestaurantAdapter adapter;
 
     public static RestaurantListFrag newInstance() {
         return new RestaurantListFrag();
@@ -41,36 +44,17 @@ public class RestaurantListFrag extends RxBaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//List<RestaurantApi>
         DoorDashApplication.appComponent.inject(this);
-//        subscriptions.add(api.getRestaurants("37.422740", "-122.139956").subscribe());
-//        Subscription sub = api.getRestaurants("37.422740", "-122.139956")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<List<RestaurantApi>>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<RestaurantApi> restaurantApis) {
-//
-//                    }
-//                });
-//        subscriptions.add(sub);
         api.getRestaurants("37.422740", "-122.139956").enqueue(new Callback<List<RestaurantApi>>() {
             @Override
             public void onResponse(Call<List<RestaurantApi>> call, Response<List<RestaurantApi>> response) {
                 initAdapter(response.body());
+
             }
 
             @Override
             public void onFailure(Call<List<RestaurantApi>> call, Throwable t) {
-
+                Log.e(TAG, t.getMessage());
+                syncFinished = true;
             }
         });
     }
@@ -96,8 +80,19 @@ public class RestaurantListFrag extends RxBaseFragment {
 
     private void initAdapter(List<RestaurantApi> restaurantApiList) {
         if (binding.restaurantRv.getAdapter() == null) {
-            binding.restaurantRv.setAdapter(new RestaurantAdapter(restaurantApiList));
+            adapter = new RestaurantAdapter(restaurantApiList);
+            binding.restaurantRv.setAdapter(adapter);
         }
+        syncFinished = true;
+    }
+
+    public FragmentRestaurantListBinding getViewBinding(){
+        return binding;
+    }
+
+
+    public boolean isSyncFinished() {
+        return syncFinished;
     }
 
 }

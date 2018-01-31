@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragment(Fragment fragment) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.activity_base_container, fragment);
+        ft.replace(R.id.activity_base_container, fragment, fragment.getClass().getSimpleName());
         ft.addToBackStack(fragment.getClass().getSimpleName());
         ft.commit();
     }
+
 }

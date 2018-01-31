@@ -6,7 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -21,7 +20,6 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(NetworkConstants.DOORDASH_BASE_URL)
                 .addConverterFactory(converter)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
